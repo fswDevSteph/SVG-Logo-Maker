@@ -1,7 +1,8 @@
 //This will be main application file to use inquirer to prompt and handle users imput and generate the logo.
 //"Entry" point for application and orchastrates the main functionality.
 const inquirer = require('inquirer'); // Importing the inquirer module.
-
+const { createShape } = require('./lib/shapes');
+//!Prompt function goes here
 // Prompt for text logo
 async function promptForText() {
   const userInput = await inquirer.prompt([
@@ -63,6 +64,9 @@ async function main() {
 
 // Call the main function to start the program
 main();
+
+// Call the createShape function to generate the SVG code based on user input
+const shapeSVG = createShape(shape); // Assuming shape is obtained from user input
 
 // This file will contain functions for creating different shapes.
 // 1. anytime you create a node project type nmp init in the terminal to create a package json file.
