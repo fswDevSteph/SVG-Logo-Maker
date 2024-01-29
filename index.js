@@ -1,4 +1,5 @@
-//This will be main application file to use inquirer to prompt users and generate the logo.
+//This will be main application file to use inquirer to prompt and handle users imput and generate the logo.
+//"Entry" point for application and orchastrates the main functionality.
 const inquirer = require('inquirer'); // Importing the inquirer module.
 
 // Prompt for text logo
