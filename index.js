@@ -4,8 +4,8 @@ const inquirer = require('inquirer'); // Importing the inquirer module.
 const { createShape } = require('./lib/shapes');
 //!Prompt function goes here
 // Prompt for text logo
-async function promptForText() {
-  const userInput = await inquirer.prompt([
+function promptForText() {
+  const userInput = inquirer.prompt([
     {
       type: 'input',
       name: 'text',
