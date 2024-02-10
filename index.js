@@ -48,7 +48,11 @@ async function promptForText() {
           choices: ['circle', 'triangle', 'square'], // Choices for the user to select from
         },
       ])
-      .then((answers) => {});
+      .then((answers) => {
+        if (answers.shape === Circle) {
+          let c = new Circle(answers.color);
+        }
+      });
   } catch (error) {
     console.error(error);
   }
