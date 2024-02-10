@@ -2,6 +2,7 @@
 //"Entry" point for application and orchastrates the main functionality.
 const inquirer = require('inquirer'); // Importing the inquirer module.
 const { Triangle, Circle, Square } = require('./lib/shapes');
+const fs = require('fs');
 //!Prompt function goes here
 // Prompt for text logo
 async function promptForText() {
@@ -42,20 +43,62 @@ async function promptForText() {
           },
         },
         {
+          type: 'input',
+          name: 'shapeColor',
+          message: 'Enter shape color (color keyword or hexadecimal number):',
+          validate: function (userColorInput) {
+            // Validate if input is a valid color keyword or hexadecimal number
+            // The start ^ and the end $ indicate the pattern to match
+            // ^# this part means the input MUST start with # character
+            // \b wraps word matches
+            // | the pipe means an exact match of the previous pattern or the next
+            // .test() method that searches for exact match between a regular expression and specified string
+            if (
+              !/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^(\b(black|white|red|green|blue|yellow|magenta|cyan)\b)$/.test(
+                userColorInput
+              )
+            ) {
+              return 'Please enter a valid color keyword or hexadecimal number.';
+            }
+            return true;
+          },
+        },
+        {
           type: 'list',
           name: 'shape',
           message: 'Select a shape:',
-          choices: ['circle', 'triangle', 'square'], // Choices for the user to select from
+          choices: ['Circle', 'Triangle', 'Square'], // Choices for the user to select from
         },
       ])
       .then((answers) => {
-        if (answers.shape === Circle) {
-          let c = new Circle(answers.color);
-        } else if (answers.shape === Triangle) {
-          let t = new Triangle(answers.color);
-        } else if (answers.shape === Square) {
-          let s = new Square(answers.color);
+        let shape; // global shape variable to be used inside write file method
+        if (answers.shape === 'Circle') {
+          //console.log('Circle');
+          shape = new Circle(); //new Circle() - New instance of a circle class
+          // shape.setColor('yellow');
+          shape.setColor(answers.color);
+          // console.log(shape.generateSVG());
+        } else if (answers.shape === 'Triangle') {
+          shape = new Triangle();
+          shape.setColor(answers.color);
+        } else if (answers.shape === 'Square') {
+          shape = new Square();
+          shape.setColor(answers.color);
         }
+        // console.log('Shaoe is below');
+        // console.log(shape);
+        // console.log(shape.generateSVG());
+
+        fs.writeFile('output/shape.svg', shape.generateSVG(), (err) => {
+          if (err) {
+            console.log('error');
+            res.status(500).json({ error: 'Server error' }); //same as line 17
+            return;
+          }
+
+          // send updated notes as a response
+          console.log('SVG Created Sucessfully');
+        });
       });
   } catch (error) {
     console.error(error);
