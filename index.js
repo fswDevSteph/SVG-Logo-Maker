@@ -51,6 +51,10 @@ async function promptForText() {
       .then((answers) => {
         if (answers.shape === Circle) {
           let c = new Circle(answers.color);
+        } else if (answers.shape === Triangle) {
+          let t = new Triangle(answers.color);
+        } else if (answers.shape === Square) {
+          let s = new Square(answers.color);
         }
       });
   } catch (error) {
