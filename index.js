@@ -23,7 +23,7 @@ async function promptForText() {
         },
         {
           type: 'input',
-          name: 'color',
+          name: 'textcolor',
           message: 'Enter text color (color keyword or hexadecimal number):',
           validate: function (userColorInput) {
             // Validate if input is a valid color keyword or hexadecimal number
@@ -72,19 +72,22 @@ async function promptForText() {
       ])
       .then((answers) => {
         let shape; // global shape variable to be used inside write file method
+
         if (answers.shape === 'Circle') {
-          //console.log('Circle');
           shape = new Circle(); //new Circle() - New instance of a circle class
-          // shape.setColor('yellow');
-          shape.setColor(answers.color);
-          // console.log(shape.generateSVG());
+          shape.setShapeColor(answers.shapeColor);
+          shape.setTextColor(answers.textcolor);
+          shape.setText(answers.text);
         } else if (answers.shape === 'Triangle') {
           shape = new Triangle();
-          shape.setColor(answers.color);
+          shape.setShapeColor(answers.shapeColor);
+          shape.setTextColor(answers.textcolor);
+          shape.setText(answers.text);
         } else if (answers.shape === 'Square') {
           shape = new Square();
-          shape.setColor(answers.color);
-          shape.setText(answers.setText);
+          shape.setShapeColor(answers.shapeColor);
+          shape.setTextColor(answers.textcolor);
+          shape.setText(answers.text);
         }
         // console.log('Shaoe is below');
         // console.log(shape);
