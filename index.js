@@ -84,6 +84,7 @@ async function promptForText() {
         } else if (answers.shape === 'Square') {
           shape = new Square();
           shape.setColor(answers.color);
+          shape.setText(answers.setText);
         }
         // console.log('Shaoe is below');
         // console.log(shape);
