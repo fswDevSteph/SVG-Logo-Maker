@@ -93,7 +93,7 @@ async function promptForText() {
         // console.log(shape);
         // console.log(shape.generateSVG());
 
-        fs.writeFile('output/shape.svg', shape.generateSVG(), (err) => {
+        fs.writeFile('output/logo.svg', shape.generateSVG(), (err) => {
           if (err) {
             console.log('error');
             res.status(500).json({ error: 'Server error' }); //same as line 17
